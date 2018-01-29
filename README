@@ -1,3 +1,17 @@
+-------------------------------
+This repository contains an updated Japanese translation for parted.
+
+upstream is:
+git://git.savannah.gnu.org/parted.git
+
+While 'master' branch is the upstream master, 'japanese-translation' branch
+contains an updated ja.po (Japanese translation of the strings in parted) for
+master.  The updated translation will be sent to the Translation Project as
+soon as parted.pot (official translatable string list) is updated, and quickly
+upstreamed.
+-------------------------------
+
+
 GNU Parted
 ----------
 

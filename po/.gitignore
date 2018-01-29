@@ -1,5 +1,6 @@
 *.gmo
 *.po
+!ja.po
 /Makefile.in.in
 /Makevars.template
 /Rules-quot
