@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: parted 3.1.90\n"
 "Report-Msgid-Bugs-To: bug-parted@gnu.org\n"
-"POT-Creation-Date: 2018-01-29 21:24+0900\n"
-"PO-Revision-Date: 2014-07-04 18:30+0900\n"
+"POT-Creation-Date: 2018-01-29 21:45+0900\n"
+"PO-Revision-Date: 2018-01-29 22:16+0900\n"
 "Last-Translator: Hiroshi Takekawa <sian@big.or.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -656,13 +656,12 @@ msgid "Compaq Smart Array"
 msgstr "Compaq Smart Array"
 
 #: libparted/arch/linux.c:1490
-#, fuzzy
 msgid "NVMe Device"
-msgstr "新しいデバイス?"
+msgstr "NVMeデバイス"
 
 #: libparted/arch/linux.c:1495
 msgid "NVDIMM Device"
-msgstr ""
+msgstr "NVDIMMデバイス"
 
 #: libparted/arch/linux.c:1500
 msgid "ATARAID Controller"
@@ -703,7 +702,7 @@ msgstr "Linux Software RAID Array"
 
 #: libparted/arch/linux.c:1563
 msgid "RAM Drive"
-msgstr ""
+msgstr "RAMドライブ"
 
 #: libparted/arch/linux.c:1570
 msgid "ped_device_new()  Unsupported device type"
@@ -1044,89 +1043,87 @@ msgid "Support for setting flags in AIX disk labels is not implemented yet."
 msgstr "AIX ディスクラベルのフラグの設定は未実装です。"
 
 #: libparted/labels/atari.c:272
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can't use Atari partition tables on disks with a sector size not equal to %d "
 "bytes."
-msgstr ""
-"Parted は、セクタサイズが %d バイトでないディスクでは HFS ファイルシステムを"
-"使えません。"
+msgstr "セクタサイズが %d バイトでないディスクでは Atari パーティションテーブルは使えません。"
 
 #: libparted/labels/atari.c:284
 #, c-format
 msgid "Can't use Atari partition tables on disks with more than %d sectors."
-msgstr ""
+msgstr "セクタ数が %d より多いディスクでは Atari パーティションテーブルは使えません。"
 
 #: libparted/labels/atari.c:396
 msgid ""
 "Too many Atari partitions detected.  Maybe there is a loop in the XGM linked "
 "list.  Aborting."
-msgstr ""
+msgstr "多すぎる Atari パーティションが検出されました。もしかしたら XGM リンクリストにループがあるのかもしれません。中止します。"
 
 #: libparted/labels/atari.c:594
 #, c-format
 msgid "No data partition found in the ARS at sector %lli."
-msgstr ""
+msgstr "データパーティションがセクタ %lli にある ARS に見つかりませんでした。"
 
 #: libparted/labels/atari.c:615
 #, c-format
 msgid ""
 "The entry of the next logical ARS is not of type XGM in ARS at sector %lli."
-msgstr ""
+msgstr "セクタ %lli にある ARS の中の次の論理ARSエントリがXGMではありません。"
 
 #: libparted/labels/atari.c:646
 #, c-format
 msgid ""
 "There doesn't seem to be an Atari partition table on this disk (%s), or it "
 "is corrupted."
-msgstr ""
+msgstr "このディスク (%s) に Atari パーティションテーブルがないか破損しています。"
 
 #: libparted/labels/atari.c:876
 #, c-format
 msgid "No room at sector %lli to store ARS of logical partition %d."
-msgstr ""
+msgstr "セクタ %lli に論理パーティション %d の ARS を保存する領域がありません。"
 
 #: libparted/labels/atari.c:883
 #, c-format
 msgid "No room at sector %lli to store ARS."
-msgstr ""
+msgstr "セクタ %lli に ARS を保存する領域がありません。"
 
 #: libparted/labels/atari.c:960
 msgid ""
 "The sector count that is stored in the partition table does not correspond "
 "to the size of your device.  Do you want to fix the partition table?"
-msgstr ""
+msgstr "パーティションテーブルに保存されているセクタ数がデバイスのサイズに合致しません。パーティションテーブルを修正しますか？"
 
 #: libparted/labels/atari.c:1001
 #, c-format
 msgid "No room at sector %lli to store BSL."
-msgstr ""
+msgstr "セクタ %lli に BSL を保存する領域がありません。"
 
 #: libparted/labels/atari.c:1109
 msgid "There were remaining partitions after filling the main AHDI table."
-msgstr ""
+msgstr "メイン AHDI テーブルを埋めた後に残っているパーティションがあります。"
 
 #: libparted/labels/atari.c:1128
 msgid ""
 "The main AHDI table has been filled with all partitions but the ICD table is "
 "not empty so more partitions of unknown size and position will be detected "
 "by ICD compatible software.  Do you want to invalidate the ICD table?"
-msgstr ""
+msgstr "メイン AHDI テーブルは全てのパーティションで埋まりましたが ICD テーブルが空でないため、余分に不明なサイズと位置のパーティションが ICD 互換ソフトウェアによって検出されます。ICD テーブルを無効にしますか？"
 
 #: libparted/labels/atari.c:1162
 msgid "ICD entries can't contain extended or logical partitions."
-msgstr ""
+msgstr "ICD エントリは拡張パーティションや論理パーティションを含むことができません。"
 
 #: libparted/labels/atari.c:1184
 msgid "There were remaining partitions after filling the tables."
-msgstr ""
+msgstr "テーブルを埋めてもパーティションに余りがあります。"
 
 #: libparted/labels/atari.c:1224
 #, c-format
 msgid ""
 "You can't use an extended XGM partition in ICD mode (more than %d primary "
 "partitions, if XGM is the first one it counts for two)."
-msgstr ""
+msgstr "拡張 XGM パーティションは ICD モードでは使えません (XGM が最初のパーティションの場合は2つとして数えられ、%d 以上のプライマリパーティションとなります)。"
 
 #: libparted/labels/atari.c:1655 libparted/labels/bsd.c:571
 #: libparted/labels/dasd.c:894 libparted/labels/dos.c:2237
@@ -1142,7 +1139,7 @@ msgstr "このパーティションで全ての制約を満たせません。"
 msgid ""
 "You can't use more than %d primary partitions (ICD mode) if you use an "
 "extended XGM partition.  If XGM is the first partition it counts for two."
-msgstr ""
+msgstr "拡張 XGM パーティションを使う場合、%d 個以上のプライマリパーティションを ICD モードで使うことができません。XGM が最初のパーティションの場合はそれは2つとして数えられます。"
 
 #: libparted/labels/atari.c:1821 libparted/labels/rdb.c:1081
 msgid "Unable to allocate a partition number."
@@ -1154,7 +1151,7 @@ msgstr "BSDディスクラベルのスロットを確保できません。"
 
 #: libparted/labels/dasd.c:625
 msgid "The partition table of DASD-LDL device cannot be changed.\n"
-msgstr ""
+msgstr "DASD-LDL パーティションテーブルのデバイスは変更できません。\n"
 
 #: libparted/labels/dasd.c:920
 msgid "Unable to allocate a dasd disklabel slot"
@@ -1280,7 +1277,7 @@ msgstr "指定されたデバイスは有効な DASD デバイスではありま
 
 #: libparted/labels/fdasd.c:192
 msgid "VOLSER not found on device"
-msgstr ""
+msgstr "VOLSER がデバイスに見つかりませんでした"
 
 #: libparted/labels/fdasd.c:195 libparted/labels/vtoc.c:179
 msgid "Fatal error"
@@ -1311,9 +1308,8 @@ msgstr ""
 "しません!"
 
 #: libparted/labels/fdasd.c:1024
-#, fuzzy
 msgid "Could not retrieve disk size."
-msgstr "ディスク情報が取得できません。"
+msgstr "ディスクサイズが取得できません。"
 
 #: libparted/labels/fdasd.c:1033
 msgid "Could not retrieve disk geometry information."
@@ -1325,7 +1321,7 @@ msgstr "ブロックサイズ情報が取得できません。"
 
 #: libparted/labels/fdasd.c:1049
 msgid "Disk geometry does not match a DASD device of type 3390."
-msgstr ""
+msgstr "Disk ジオメトリがタイプ 3390 の DASDデバイスと一致しません。"
 
 #: libparted/labels/gpt.c:533
 msgid "device is too small for GPT"
@@ -2117,7 +2113,7 @@ msgstr ""
 "のがあります。ファイルシステムのチェックを実行すべきです！"
 
 #: libparted/fs/r/hfs/cache.c:213
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Trying to move an extent from block 0x%X to block 0x%X, but another one "
 "already exists at this position.  This should not happen!"
@@ -2269,13 +2265,10 @@ msgstr ""
 "りました。"
 
 #: libparted/fs/r/hfs/journal.c:259
-#, fuzzy
 msgid ""
 "Journal stored outside of the volume are not supported.  Try to deactivate "
 "the journal and run Parted again."
-msgstr ""
-"ボリュームの外にあるジャーナルはサポートしていません。ジャーナルを無効にして "
-"Parted を実行しなおしてください。"
+msgstr "ボリュームの外にあるジャーナルはサポートしていません。ジャーナルを無効にして Parted を実行しなおしてください。"
 
 #: libparted/fs/r/hfs/journal.c:270
 msgid "Journal offset or size is not multiple of the sector size."
@@ -2550,21 +2543,19 @@ msgstr ""
 "それでもかまいませんか？"
 
 #: parted/parted.c:797
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The resulting partition is not properly aligned for best performance: %s"
-msgstr ""
-"操作の結果できるパーティションはアライメントが正しくないためにパフォーマンス"
-"がでません。"
+msgstr "操作の結果できるパーティションはアライメントが正しくないためにパフォーマンスがでません: %s"
 
 #: parted/parted.c:799 parted/parted.c:1723
 msgid "unknown (malloc failed)"
-msgstr ""
+msgstr "不明 (malloc 失敗)"
 
 #: parted/parted.c:876
-#, fuzzy, c-format
+#, c-format
 msgid "%s disk labels do not support partition name."
-msgstr "%s のディスクラベルは拡張パーティションをサポートしていません。"
+msgstr "%s のディスクラベルはパーティション名をサポートしていません。"
 
 #: parted/parted.c:881 parted/parted.c:1563 parted/parted.c:1611
 #: parted/parted.c:1705 parted/parted.c:1782
@@ -2675,9 +2666,9 @@ msgid "%d aligned\n"
 msgstr "%d アライメント済\n"
 
 #: parted/parted.c:1721
-#, fuzzy, c-format
+#, c-format
 msgid "%d not aligned: %s\n"
-msgstr "%d 未アライメント\n"
+msgstr "%d 未アライメント: %s\n"
 
 #: parted/parted.c:1747 parted/parted.c:1784
 msgid "Flag to Invert?"
