@@ -35,6 +35,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <dirent.h>
+#include <sys/sysmacros.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -960,6 +961,7 @@ init_ide (PedDevice* dev)
 
                         case PED_EXCEPTION_UNHANDLED:
                                 ped_exception_catch ();
+				/* FALL THROUGH */
                         case PED_EXCEPTION_IGNORE:
                                 dev->model = strdup(_("Generic IDE"));
                                 break;
@@ -1889,6 +1891,7 @@ linux_read (const PedDevice* dev, void* buffer, PedSector start,
 
                         case PED_EXCEPTION_UNHANDLED:
                                 ped_exception_catch ();
+				/* FALL THROUGH */
                         case PED_EXCEPTION_CANCEL:
                                 return 0;
                         default:
@@ -1932,6 +1935,7 @@ linux_read (const PedDevice* dev, void* buffer, PedSector start,
 
                         case PED_EXCEPTION_UNHANDLED:
                                 ped_exception_catch ();
+				/* FALL THROUGH */
                         case PED_EXCEPTION_CANCEL:
                                 free(diobuf);
                                 return 0;
@@ -2031,6 +2035,7 @@ linux_write (PedDevice* dev, const void* buffer, PedSector start,
 
                         case PED_EXCEPTION_UNHANDLED:
                                 ped_exception_catch ();
+				/* FALL THROUGH */
                         case PED_EXCEPTION_CANCEL:
                                 return 0;
                         default:
@@ -2074,6 +2079,7 @@ linux_write (PedDevice* dev, const void* buffer, PedSector start,
 
                         case PED_EXCEPTION_UNHANDLED:
                                 ped_exception_catch ();
+				/* FALL THROUGH */
                         case PED_EXCEPTION_CANCEL:
                                 free(diobuf_start);
                                 return 0;
@@ -2145,6 +2151,7 @@ _do_fsync (PedDevice* dev)
 
                         case PED_EXCEPTION_UNHANDLED:
                                 ped_exception_catch ();
+				/* FALL THROUGH */
                         case PED_EXCEPTION_CANCEL:
                                 return 0;
                         default:
