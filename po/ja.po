@@ -1,14 +1,14 @@
 # Partedのメッセージの日本語訳
 # Copyright (C) 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the parted package.
-# Hiroshi Takekawa <sian@big.or.jp>, 1999-2014.
+# Hiroshi Takekawa <sian@big.or.jp>, 1999-2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: parted 3.1.90\n"
 "Report-Msgid-Bugs-To: bug-parted@gnu.org\n"
-"POT-Creation-Date: 2018-01-29 21:45+0900\n"
-"PO-Revision-Date: 2018-01-29 22:16+0900\n"
+"POT-Creation-Date: 2018-06-13 20:16+0900\n"
+"PO-Revision-Date: 2018-06-13 20:24+0900\n"
 "Last-Translator: Hiroshi Takekawa <sian@big.or.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -412,45 +412,45 @@ msgid "Disk Image"
 msgstr "ディスクイメージ"
 
 #: libparted/arch/beos.c:346 libparted/arch/gnu.c:277
-#: libparted/arch/linux.c:1706
+#: libparted/arch/linux.c:1707
 #, c-format
 msgid "Error opening %s: %s"
 msgstr "%s をオープン中にエラー: %s"
 
 #: libparted/arch/beos.c:357 libparted/arch/gnu.c:287
-#: libparted/arch/linux.c:1717
+#: libparted/arch/linux.c:1718
 #, c-format
 msgid "Unable to open %s read-write (%s).  %s has been opened read-only."
 msgstr ""
 "%s を読み書き可能な状態にオープンできません(%s)。%s は読み込みのみ可能な状態"
 "でオープンされました。"
 
-#: libparted/arch/beos.c:419 libparted/arch/linux.c:1882
+#: libparted/arch/beos.c:419 libparted/arch/linux.c:1883
 #, c-format
 msgid "%s during seek for read on %s"
 msgstr "%s: %s から読み込み中のシークでエラーが発生しました。"
 
 #: libparted/arch/beos.c:452 libparted/arch/gnu.c:465 libparted/arch/gnu.c:564
-#: libparted/arch/gnu.c:692 libparted/arch/linux.c:1842
-#: libparted/arch/linux.c:1924
+#: libparted/arch/gnu.c:692 libparted/arch/linux.c:1843
+#: libparted/arch/linux.c:1925
 #, c-format
 msgid "%s during read on %s"
 msgstr "%s: %s から読み込み中にエラーが発生しました。"
 
 #: libparted/arch/beos.c:488 libparted/arch/gnu.c:525
-#: libparted/arch/linux.c:2001
+#: libparted/arch/linux.c:2002
 #, c-format
 msgid "Can't write to %s, because it is opened read-only."
 msgstr "読み込みのみが可能なようにオープンされているので、%sに書きこめません。"
 
-#: libparted/arch/beos.c:504 libparted/arch/linux.c:2026
+#: libparted/arch/beos.c:504 libparted/arch/linux.c:2027
 #, c-format
 msgid "%s during seek for write on %s"
 msgstr "%s: %s に書きこみ中のシークでエラーが発生しました。"
 
 #: libparted/arch/beos.c:541 libparted/arch/gnu.c:601 libparted/arch/gnu.c:646
-#: libparted/arch/gnu.c:723 libparted/arch/linux.c:1974
-#: libparted/arch/linux.c:2069 libparted/arch/linux.c:2142
+#: libparted/arch/gnu.c:723 libparted/arch/linux.c:1975
+#: libparted/arch/linux.c:2070 libparted/arch/linux.c:2143
 #, c-format
 msgid "%s during write on %s"
 msgstr "%s: %s に書きこみ中にエラーが発生しました。"
@@ -534,7 +534,7 @@ msgstr ""
 "は Hurd はあなたが行った変更を関知していないことを意味しています。%s に対して"
 "何か操作をする前にコンピュータを再起動するべきです。"
 
-#: libparted/arch/gnu.c:396 parted/parted.c:2319
+#: libparted/arch/gnu.c:396 parted/parted.c:2322
 msgid ""
 "You should reinstall your boot loader before rebooting.  Read section 4 of "
 "the Parted User documentation for more information."
@@ -547,17 +547,17 @@ msgstr ""
 msgid "%s trying to sync %s to disk"
 msgstr "%s: %s を同期中にエラーが発生しました。"
 
-#: libparted/arch/linux.c:633
+#: libparted/arch/linux.c:634
 #, c-format
 msgid "Could not stat device %s - %s."
 msgstr "デバイス %s を調べられません: %s"
 
-#: libparted/arch/linux.c:690
+#: libparted/arch/linux.c:691
 #, c-format
 msgid "Unable to determine the dm type of %s."
 msgstr "%s の dm タイプを特定できません"
 
-#: libparted/arch/linux.c:774 libparted/arch/linux.c:900
+#: libparted/arch/linux.c:775 libparted/arch/linux.c:901
 #, c-format
 msgid ""
 "Could not determine sector size for %s: %s.\n"
@@ -566,7 +566,7 @@ msgstr ""
 "%s のセクタサイズが決定できません: %s\n"
 "デフォルトのセクタサイズ (%lld) を使います。"
 
-#: libparted/arch/linux.c:795
+#: libparted/arch/linux.c:796
 #, c-format
 msgid ""
 "Could not determine physical sector size for %s.\n"
@@ -575,21 +575,21 @@ msgstr ""
 "%s の物理セクタサイズが決定できません。\n"
 "論理セクタサイズ (%lld) を使います。"
 
-#: libparted/arch/linux.c:855
+#: libparted/arch/linux.c:856
 #, c-format
 msgid "Unable to determine the size of %s (%s)."
 msgstr "%s のサイズを決定できません(%s)"
 
-#: libparted/arch/linux.c:951 libparted/arch/linux.c:966
+#: libparted/arch/linux.c:952 libparted/arch/linux.c:967
 msgid "Generic IDE"
 msgstr "一般的な IDE"
 
-#: libparted/arch/linux.c:956
+#: libparted/arch/linux.c:957
 #, c-format
 msgid "Could not get identity of device %s - %s"
 msgstr "デバイス %s の identity を取得できません: %s"
 
-#: libparted/arch/linux.c:987
+#: libparted/arch/linux.c:988
 #, c-format
 msgid ""
 "Device %s has multiple (%d) logical sectors per physical sector.\n"
@@ -604,12 +604,12 @@ msgstr ""
 "いった組み合わせです。\n"
 "最新の情報は web サイトをご覧ください。"
 
-#: libparted/arch/linux.c:1164
+#: libparted/arch/linux.c:1165
 #, c-format
 msgid "Error initialising SCSI device %s - %s"
 msgstr "SCSI デバイス %s の初期化に失敗しました: %s"
 
-#: libparted/arch/linux.c:1228
+#: libparted/arch/linux.c:1229
 #, c-format
 msgid ""
 "The device %s is so small that it cannot possibly store a file system or "
@@ -618,7 +618,7 @@ msgstr ""
 "デバイス %s のサイズがとても小さいので、ファイルシステムやパーティションテー"
 "ブルを記録できません。デバイスの選択を間違っていないか確認してください。"
 
-#: libparted/arch/linux.c:1341
+#: libparted/arch/linux.c:1342
 #, c-format
 msgid ""
 "Unable to determine geometry of file/device %s.  You should not use Parted "
@@ -627,98 +627,98 @@ msgstr ""
 "ファイルまたはデバイス %s の geometry を決定できません。自分で何をしているか"
 "よく理解していなければ Parted を使うべきではありません。"
 
-#: libparted/arch/linux.c:1401
+#: libparted/arch/linux.c:1402
 msgid "Generic SD/MMC Storage Card"
 msgstr "SD/MMC カード"
 
-#: libparted/arch/linux.c:1458
+#: libparted/arch/linux.c:1459
 msgid "DAC960 RAID controller"
 msgstr "DAC960 RAID コントローラ"
 
-#: libparted/arch/linux.c:1463
+#: libparted/arch/linux.c:1464
 msgid "Promise SX8 SATA Device"
 msgstr "Promise SX8 SATA デバイス"
 
-#: libparted/arch/linux.c:1468
+#: libparted/arch/linux.c:1469
 msgid "ATA over Ethernet Device"
 msgstr "ATA over Ethernetデバイス"
 
-#: libparted/arch/linux.c:1474
+#: libparted/arch/linux.c:1475
 msgid "IBM S390 DASD drive"
 msgstr "IBM S390 DASD ドライブ"
 
-#: libparted/arch/linux.c:1480
+#: libparted/arch/linux.c:1481
 msgid "IBM iSeries Virtual DASD"
 msgstr "IBM iSeries Virtual DASD"
 
-#: libparted/arch/linux.c:1485
+#: libparted/arch/linux.c:1486
 msgid "Compaq Smart Array"
 msgstr "Compaq Smart Array"
 
-#: libparted/arch/linux.c:1490
+#: libparted/arch/linux.c:1491
 msgid "NVMe Device"
 msgstr "NVMeデバイス"
 
-#: libparted/arch/linux.c:1495
+#: libparted/arch/linux.c:1496
 msgid "NVDIMM Device"
 msgstr "NVDIMMデバイス"
 
-#: libparted/arch/linux.c:1500
+#: libparted/arch/linux.c:1501
 msgid "ATARAID Controller"
 msgstr "ATA RAID コントローラ"
 
-#: libparted/arch/linux.c:1505
+#: libparted/arch/linux.c:1506
 msgid "I2O Controller"
 msgstr "I2O コントローラ"
 
-#: libparted/arch/linux.c:1510
+#: libparted/arch/linux.c:1511
 msgid "User-Mode Linux UBD"
 msgstr "User-Mode Linux UBD"
 
-#: libparted/arch/linux.c:1520
+#: libparted/arch/linux.c:1521
 msgid "Loopback device"
 msgstr "Loopback デバイス"
 
-#: libparted/arch/linux.c:1528
+#: libparted/arch/linux.c:1529
 #, c-format
 msgid "Linux device-mapper (%s)"
 msgstr "Linux device-mapper (%s)"
 
-#: libparted/arch/linux.c:1539
+#: libparted/arch/linux.c:1540
 msgid "Xen Virtual Block Device"
 msgstr "Xen Virtual Block Device"
 
-#: libparted/arch/linux.c:1544
+#: libparted/arch/linux.c:1545
 msgid "Unknown"
 msgstr "不明"
 
-#: libparted/arch/linux.c:1553
+#: libparted/arch/linux.c:1554
 msgid "Virtio Block Device"
 msgstr "Virtio Block Device"
 
-#: libparted/arch/linux.c:1558
+#: libparted/arch/linux.c:1559
 msgid "Linux Software RAID Array"
 msgstr "Linux Software RAID Array"
 
-#: libparted/arch/linux.c:1563
+#: libparted/arch/linux.c:1564
 msgid "RAM Drive"
 msgstr "RAMドライブ"
 
-#: libparted/arch/linux.c:1570
+#: libparted/arch/linux.c:1571
 msgid "ped_device_new()  Unsupported device type"
 msgstr "ped_device_new()  サポートされていない種類のデバイスです。"
 
-#: libparted/arch/linux.c:1664 libparted/arch/linux.c:1749
+#: libparted/arch/linux.c:1665 libparted/arch/linux.c:1750
 #, c-format
 msgid "Error fsyncing/closing %s: %s"
 msgstr "%s を fsync/close 中にエラー: %s"
 
-#: libparted/arch/linux.c:1923
+#: libparted/arch/linux.c:1924
 #, c-format
 msgid "%0.0send of file while reading %s"
 msgstr "%0.0s%s を読み込み中にファイルの終わりに達しました"
 
-#: libparted/arch/linux.c:2658
+#: libparted/arch/linux.c:2659
 #, c-format
 msgid ""
 "Error informing the kernel about modifications to partition %s -- %s.  This "
@@ -729,12 +729,12 @@ msgstr ""
 "従って、カーネルは再起動するまで %s に行った変更を認識しません。再起動するま"
 "でそのパーティションをマウントしたり何かしたりしてはいけません。"
 
-#: libparted/arch/linux.c:2778
+#: libparted/arch/linux.c:2779
 #, c-format
 msgid "Unable to determine the start and length of %s."
 msgstr "%s の開始位置と長さを決定できません"
 
-#: libparted/arch/linux.c:3191
+#: libparted/arch/linux.c:3192
 #, c-format
 msgid ""
 "Partition(s) %s on %s have been written, but we have been unable to inform "
@@ -860,15 +860,15 @@ msgstr "メタ情報"
 msgid "free"
 msgstr "空き"
 
-#: libparted/disk.c:2354 parted/ui.c:1244 parted/ui.c:1272
+#: libparted/disk.c:2354 parted/ui.c:1258 parted/ui.c:1286
 msgid "extended"
 msgstr "拡張"
 
-#: libparted/disk.c:2356 parted/ui.c:1248 parted/ui.c:1276
+#: libparted/disk.c:2356 parted/ui.c:1262 parted/ui.c:1290
 msgid "logical"
 msgstr "論理"
 
-#: libparted/disk.c:2358 parted/ui.c:1240 parted/ui.c:1268
+#: libparted/disk.c:2358 parted/ui.c:1254 parted/ui.c:1282
 msgid "primary"
 msgstr "プライマリ"
 
@@ -1047,18 +1047,23 @@ msgstr "AIX ディスクラベルのフラグの設定は未実装です。"
 msgid ""
 "Can't use Atari partition tables on disks with a sector size not equal to %d "
 "bytes."
-msgstr "セクタサイズが %d バイトでないディスクでは Atari パーティションテーブルは使えません。"
+msgstr ""
+"セクタサイズが %d バイトでないディスクでは Atari パーティションテーブルは使え"
+"ません。"
 
 #: libparted/labels/atari.c:284
 #, c-format
 msgid "Can't use Atari partition tables on disks with more than %d sectors."
-msgstr "セクタ数が %d より多いディスクでは Atari パーティションテーブルは使えません。"
+msgstr ""
+"セクタ数が %d より多いディスクでは Atari パーティションテーブルは使えません。"
 
 #: libparted/labels/atari.c:396
 msgid ""
 "Too many Atari partitions detected.  Maybe there is a loop in the XGM linked "
 "list.  Aborting."
-msgstr "多すぎる Atari パーティションが検出されました。もしかしたら XGM リンクリストにループがあるのかもしれません。中止します。"
+msgstr ""
+"多すぎる Atari パーティションが検出されました。もしかしたら XGM リンクリスト"
+"にループがあるのかもしれません。中止します。"
 
 #: libparted/labels/atari.c:594
 #, c-format
@@ -1076,12 +1081,14 @@ msgstr "セクタ %lli にある ARS の中の次の論理ARSエントリがXGM�
 msgid ""
 "There doesn't seem to be an Atari partition table on this disk (%s), or it "
 "is corrupted."
-msgstr "このディスク (%s) に Atari パーティションテーブルがないか破損しています。"
+msgstr ""
+"このディスク (%s) に Atari パーティションテーブルがないか破損しています。"
 
 #: libparted/labels/atari.c:876
 #, c-format
 msgid "No room at sector %lli to store ARS of logical partition %d."
-msgstr "セクタ %lli に論理パーティション %d の ARS を保存する領域がありません。"
+msgstr ""
+"セクタ %lli に論理パーティション %d の ARS を保存する領域がありません。"
 
 #: libparted/labels/atari.c:883
 #, c-format
@@ -1092,7 +1099,9 @@ msgstr "セクタ %lli に ARS を保存する領域がありません。"
 msgid ""
 "The sector count that is stored in the partition table does not correspond "
 "to the size of your device.  Do you want to fix the partition table?"
-msgstr "パーティションテーブルに保存されているセクタ数がデバイスのサイズに合致しません。パーティションテーブルを修正しますか？"
+msgstr ""
+"パーティションテーブルに保存されているセクタ数がデバイスのサイズに合致しませ"
+"ん。パーティションテーブルを修正しますか？"
 
 #: libparted/labels/atari.c:1001
 #, c-format
@@ -1108,11 +1117,15 @@ msgid ""
 "The main AHDI table has been filled with all partitions but the ICD table is "
 "not empty so more partitions of unknown size and position will be detected "
 "by ICD compatible software.  Do you want to invalidate the ICD table?"
-msgstr "メイン AHDI テーブルは全てのパーティションで埋まりましたが ICD テーブルが空でないため、余分に不明なサイズと位置のパーティションが ICD 互換ソフトウェアによって検出されます。ICD テーブルを無効にしますか？"
+msgstr ""
+"メイン AHDI テーブルは全てのパーティションで埋まりましたが ICD テーブルが空で"
+"ないため、余分に不明なサイズと位置のパーティションが ICD 互換ソフトウェアに"
+"よって検出されます。ICD テーブルを無効にしますか？"
 
 #: libparted/labels/atari.c:1162
 msgid "ICD entries can't contain extended or logical partitions."
-msgstr "ICD エントリは拡張パーティションや論理パーティションを含むことができません。"
+msgstr ""
+"ICD エントリは拡張パーティションや論理パーティションを含むことができません。"
 
 #: libparted/labels/atari.c:1184
 msgid "There were remaining partitions after filling the tables."
@@ -1123,7 +1136,9 @@ msgstr "テーブルを埋めてもパーティションに余りがあります
 msgid ""
 "You can't use an extended XGM partition in ICD mode (more than %d primary "
 "partitions, if XGM is the first one it counts for two)."
-msgstr "拡張 XGM パーティションは ICD モードでは使えません (XGM が最初のパーティションの場合は2つとして数えられ、%d 以上のプライマリパーティションとなります)。"
+msgstr ""
+"拡張 XGM パーティションは ICD モードでは使えません (XGM が最初のパーティショ"
+"ンの場合は2つとして数えられ、%d 以上のプライマリパーティションとなります)。"
 
 #: libparted/labels/atari.c:1655 libparted/labels/bsd.c:571
 #: libparted/labels/dasd.c:894 libparted/labels/dos.c:2237
@@ -1139,7 +1154,10 @@ msgstr "このパーティションで全ての制約を満たせません。"
 msgid ""
 "You can't use more than %d primary partitions (ICD mode) if you use an "
 "extended XGM partition.  If XGM is the first partition it counts for two."
-msgstr "拡張 XGM パーティションを使う場合、%d 個以上のプライマリパーティションを ICD モードで使うことができません。XGM が最初のパーティションの場合はそれは2つとして数えられます。"
+msgstr ""
+"拡張 XGM パーティションを使う場合、%d 個以上のプライマリパーティションを ICD "
+"モードで使うことができません。XGM が最初のパーティションの場合はそれは2つとし"
+"て数えられます。"
 
 #: libparted/labels/atari.c:1821 libparted/labels/rdb.c:1081
 msgid "Unable to allocate a partition number."
@@ -1799,23 +1817,23 @@ msgstr ""
 "ファイルシステムの CHS ジオメトリが (%d, %d, %d) で不正です。パーティション"
 "テーブルの CHS ジオメトリは (%d, %d, %d) です。"
 
-#: libparted/fs/fat/bootsector.c:197 libparted/fs/r/fat/bootsector.c:206
+#: libparted/fs/fat/bootsector.c:197 libparted/fs/r/fat/bootsector.c:194
 msgid "FAT boot sector says logical sector size is 0.  This is weird. "
 msgstr ""
 "FAT のブートセクタには論理セクタサイズが 0 と書かれています、これはおかしいで"
 "す。"
 
-#: libparted/fs/fat/bootsector.c:203 libparted/fs/r/fat/bootsector.c:212
+#: libparted/fs/fat/bootsector.c:203 libparted/fs/r/fat/bootsector.c:200
 msgid "FAT boot sector says there are no FAT tables.  This is weird. "
 msgstr "FAT のブートセクタに FAT テーブルがありません。これはおかしいです。"
 
-#: libparted/fs/fat/bootsector.c:209 libparted/fs/r/fat/bootsector.c:218
+#: libparted/fs/fat/bootsector.c:209 libparted/fs/r/fat/bootsector.c:206
 msgid "FAT boot sector says clusters are 0 sectors.  This is weird. "
 msgstr ""
 "FAT のブートセクタにクラスタは 0 セクタであると書かれています。これはおかしい"
 "です。"
 
-#: libparted/fs/fat/bootsector.c:219 libparted/fs/r/fat/bootsector.c:228
+#: libparted/fs/fat/bootsector.c:219 libparted/fs/r/fat/bootsector.c:216
 msgid "File system is FAT12, which is unsupported."
 msgstr "FAT12 はサポートしていません。"
 
@@ -1843,16 +1861,7 @@ msgstr ""
 "Parted は、セクタサイズが %d バイトでないディスクでは HFS ファイルシステムを"
 "使えません。"
 
-#: libparted/fs/r/fat/bootsector.c:132
-#, c-format
-msgid ""
-"This file system has a logical sector size of %d.  GNU Parted is known not "
-"to work properly with sector sizes other than 512 bytes."
-msgstr ""
-"このファイルシステムの論理セクタサイズは %d です.  セクタサイズが 512 バイト"
-"以外では GNU Parted はうまく動かないことが知られています。"
-
-#: libparted/fs/r/fat/bootsector.c:157
+#: libparted/fs/r/fat/bootsector.c:145
 #, c-format
 msgid ""
 "The file system's CHS geometry is (%d, %d, %d), which is invalid.  The "
@@ -1866,7 +1875,7 @@ msgstr ""
 "ムの CHS geometry はそのままになります。修正(F)を選べば、ファイルシステムの "
 "CHS geometry は、パーティションの CHS geometry と合うよう修正されます。"
 
-#: libparted/fs/r/fat/bootsector.c:411
+#: libparted/fs/r/fat/bootsector.c:399
 #, c-format
 msgid ""
 "The information sector has the wrong signature (%x).  Select cancel for now, "
@@ -2268,7 +2277,9 @@ msgstr ""
 msgid ""
 "Journal stored outside of the volume are not supported.  Try to deactivate "
 "the journal and run Parted again."
-msgstr "ボリュームの外にあるジャーナルはサポートしていません。ジャーナルを無効にして Parted を実行しなおしてください。"
+msgstr ""
+"ボリュームの外にあるジャーナルはサポートしていません。ジャーナルを無効にして "
+"Parted を実行しなおしてください。"
 
 #: libparted/fs/r/hfs/journal.c:270
 msgid "Journal offset or size is not multiple of the sector size."
@@ -2521,7 +2532,7 @@ msgstr "ファイルシステムの種類?"
 msgid "Start?"
 msgstr "開始?"
 
-#: parted/parted.c:697 parted/parted.c:1502 parted/parted.c:1570
+#: parted/parted.c:697 parted/parted.c:1502 parted/parted.c:1571
 msgid "End?"
 msgstr "終了?"
 
@@ -2546,9 +2557,11 @@ msgstr ""
 #, c-format
 msgid ""
 "The resulting partition is not properly aligned for best performance: %s"
-msgstr "操作の結果できるパーティションはアライメントが正しくないためにパフォーマンスがでません: %s"
+msgstr ""
+"操作の結果できるパーティションはアライメントが正しくないためにパフォーマンス"
+"がでません: %s"
 
-#: parted/parted.c:799 parted/parted.c:1723
+#: parted/parted.c:799 parted/parted.c:1726
 msgid "unknown (malloc failed)"
 msgstr "不明 (malloc 失敗)"
 
@@ -2557,8 +2570,8 @@ msgstr "不明 (malloc 失敗)"
 msgid "%s disk labels do not support partition name."
 msgstr "%s のディスクラベルはパーティション名をサポートしていません。"
 
-#: parted/parted.c:881 parted/parted.c:1563 parted/parted.c:1611
-#: parted/parted.c:1705 parted/parted.c:1782
+#: parted/parted.c:881 parted/parted.c:1563 parted/parted.c:1614
+#: parted/parted.c:1708 parted/parted.c:1785
 msgid "Partition number?"
 msgstr "パーティション番号?"
 
@@ -2645,48 +2658,48 @@ msgstr "ファイルシステムを探しています"
 msgid "The resize command has been removed in parted 3.0"
 msgstr "resize コマンドは parted 3.0 で削除されました"
 
-#: parted/parted.c:1582
+#: parted/parted.c:1585
 msgid ""
 "Shrinking a partition can cause data loss, are you sure you want to continue?"
 msgstr ""
 "パーティションを縮小するとデータを失うかもしれませんが、それでも実行します"
 "か？"
 
-#: parted/parted.c:1635
+#: parted/parted.c:1638
 msgid "New device?"
 msgstr "新しいデバイス?"
 
-#: parted/parted.c:1703
+#: parted/parted.c:1706
 msgid "alignment type(min/opt)"
 msgstr "アライメントタイプ(min/opt)"
 
-#: parted/parted.c:1719
+#: parted/parted.c:1722
 #, c-format
 msgid "%d aligned\n"
 msgstr "%d アライメント済\n"
 
-#: parted/parted.c:1721
+#: parted/parted.c:1724
 #, c-format
 msgid "%d not aligned: %s\n"
 msgstr "%d 未アライメント: %s\n"
 
-#: parted/parted.c:1747 parted/parted.c:1784
+#: parted/parted.c:1750 parted/parted.c:1787
 msgid "Flag to Invert?"
 msgstr "反転するフラグ?"
 
-#: parted/parted.c:1752 parted/parted.c:1789
+#: parted/parted.c:1755 parted/parted.c:1792
 msgid "New state?"
 msgstr "新しい状態?"
 
-#: parted/parted.c:1835
+#: parted/parted.c:1838
 msgid "Unit?"
 msgstr "単位は?"
 
-#: parted/parted.c:1970
+#: parted/parted.c:1973
 msgid "align-check"
 msgstr "align-check"
 
-#: parted/parted.c:1973
+#: parted/parted.c:1976
 msgid ""
 "align-check TYPE N                        check partition N for TYPE(min|"
 "opt) alignment"
@@ -2694,43 +2707,41 @@ msgstr ""
 "align-check TYPE N            パーティション N のアライメント(TYPE: min|opt)"
 "をチェックする"
 
-#: parted/parted.c:1981
+#: parted/parted.c:1984
 msgid "help"
 msgstr "help"
 
-#: parted/parted.c:1984
+#: parted/parted.c:1987
 msgid ""
 "help [COMMAND]                           print general help, or help on "
 "COMMAND"
 msgstr ""
 "help [コマンド]               ヘルプ表示。コマンド指定でそのヘルプを表示"
 
-#: parted/parted.c:1990
+#: parted/parted.c:1993
 msgid "mklabel"
 msgstr "mklabel"
 
-#: parted/parted.c:1990
+#: parted/parted.c:1993
 msgid "mktable"
 msgstr "mktable"
 
-#: parted/parted.c:1993
+#: parted/parted.c:1996
 msgid ""
 "mklabel,mktable LABEL-TYPE               create a new disklabel (partition "
 "table)"
 msgstr ""
 "mklabel,mktable ラベルの種類  新しいラベル(パーティションテーブル)を作る"
 
-#: parted/parted.c:1999
+#: parted/parted.c:2002
 msgid "mkpart"
 msgstr "mkpart"
 
-#: parted/parted.c:2002
+#: parted/parted.c:2005
 msgid "mkpart PART-TYPE [FS-TYPE] START END     make a partition"
-msgstr ""
-"mkpart パーティションの種類 [ファイルシステムの種類] 開始 終了\n"
-"　　　　　　　　　　　　パーティションを作る"
+msgstr "このファイルシステムの論理セクタサイズは %d です.  セクタサイズが 512 バイト以外では GNU Parted はうまく動かないことが知られています。"
 
-#: parted/parted.c:2008
+#: parted/parted.c:2011
 msgid ""
 "'mkpart' makes a partition without creating a new file system on the "
 "partition.  FS-TYPE may be specified to set an appropriate partition ID.\n"
@@ -2738,19 +2749,19 @@ msgstr ""
 "mkpart はパーティションだけ作り、新しいファイルシステムは作りません。ファイル"
 "システムの種類を指定すると、正しいIDが設定されます。\n"
 
-#: parted/parted.c:2013
+#: parted/parted.c:2016
 msgid "name"
 msgstr "name"
 
-#: parted/parted.c:2016
+#: parted/parted.c:2019
 msgid "name NUMBER NAME                         name partition NUMBER as NAME"
 msgstr "name NUMBER 名前              パーティションに名前をつける"
 
-#: parted/parted.c:2021
+#: parted/parted.c:2024
 msgid "print"
 msgstr "print"
 
-#: parted/parted.c:2024
+#: parted/parted.c:2027
 msgid ""
 "print [devices|free|list,all|NUMBER]     display the partition table, "
 "available devices, free space, all found partitions, or a particular "
@@ -2762,7 +2773,7 @@ msgstr ""
 "　　　　　　　　　　　  見つかった全てのパーティション、あるいは特定のパー"
 "ティションについて表示する"
 
-#: parted/parted.c:2029
+#: parted/parted.c:2032
 msgid ""
 "Without arguments, 'print' displays the entire partition table. However with "
 "the following arguments it performs various other actions.\n"
@@ -2770,11 +2781,11 @@ msgstr ""
 "引数をつけない場合、'print' コマンドは、全パーティションテーブルを表示しま"
 "す。次の引数をつけることが可能です。\n"
 
-#: parted/parted.c:2031
+#: parted/parted.c:2034
 msgid "  devices   : display all active block devices\n"
 msgstr "  devices   : 全てのアクティブなブロックデバイスを表示\n"
 
-#: parted/parted.c:2032
+#: parted/parted.c:2035
 msgid ""
 "  free      : display information about free unpartitioned space on the "
 "current block device\n"
@@ -2782,31 +2793,31 @@ msgstr ""
 "  free      : カレントブロックデバイスのパーティションに含まれていない空き領"
 "域情報を表示\n"
 
-#: parted/parted.c:2034
+#: parted/parted.c:2037
 msgid ""
 "  list, all : display the partition tables of all active block devices\n"
 msgstr ""
 "  list, all : アクティブな全ブロックデバイスのパーティションテーブルを表示\n"
 
-#: parted/parted.c:2035
+#: parted/parted.c:2038
 msgid ""
 "  NUMBER    : display more detailed information about this particular "
 "partition\n"
 msgstr "  NUMBER    : 指定したパーティションについてより詳しい情報を表示\n"
 
-#: parted/parted.c:2040
+#: parted/parted.c:2043
 msgid "quit"
 msgstr "quit"
 
-#: parted/parted.c:2043
+#: parted/parted.c:2046
 msgid "quit                                     exit program"
 msgstr "quit                          プログラムを終了する"
 
-#: parted/parted.c:2048
+#: parted/parted.c:2051
 msgid "rescue"
 msgstr "rescue"
 
-#: parted/parted.c:2051
+#: parted/parted.c:2054
 msgid ""
 "rescue START END                         rescue a lost partition near START "
 "and END"
@@ -2814,118 +2825,118 @@ msgstr ""
 "rescue 開始 終了              開始、終了で指定した範囲付近にあるパーティショ"
 "ンを復活させる"
 
-#: parted/parted.c:2057
+#: parted/parted.c:2060
 msgid "resize"
 msgstr "resize"
 
-#: parted/parted.c:2060
+#: parted/parted.c:2063
 msgid "The resize command was removed in parted 3.0\n"
 msgstr "resize コマンドは parted 3.0 で削除されました\n"
 
-#: parted/parted.c:2063
+#: parted/parted.c:2066
 msgid "resizepart"
 msgstr "resizepart"
 
-#: parted/parted.c:2066
+#: parted/parted.c:2069
 msgid "resizepart NUMBER END                    resize partition NUMBER"
 msgstr ""
 "resizepart NUMBER END         パーティション NUMBER を END にリサイズする"
 
-#: parted/parted.c:2071
+#: parted/parted.c:2074
 msgid "rm"
 msgstr "rm"
 
-#: parted/parted.c:2074
+#: parted/parted.c:2077
 msgid "rm NUMBER                                delete partition NUMBER"
 msgstr "rm NUMBER                     パーティションを削除する"
 
-#: parted/parted.c:2079
+#: parted/parted.c:2082
 msgid "select"
 msgstr "select"
 
-#: parted/parted.c:2082
+#: parted/parted.c:2085
 msgid "select DEVICE                            choose the device to edit"
 msgstr "select デバイス               操作するデバイスを選択"
 
-#: parted/parted.c:2087
+#: parted/parted.c:2090
 msgid "disk_set"
 msgstr "disk_set"
 
-#: parted/parted.c:2090
+#: parted/parted.c:2093
 msgid ""
 "disk_set FLAG STATE                      change the FLAG on selected device"
 msgstr "disk_set FLAG STATE           選択したデバイスの FLAG を変更"
 
-#: parted/parted.c:2095
+#: parted/parted.c:2098
 msgid "disk_toggle"
 msgstr "disk_toggle"
 
-#: parted/parted.c:2098
+#: parted/parted.c:2101
 msgid ""
 "disk_toggle [FLAG]                       toggle the state of FLAG on "
 "selected device"
 msgstr "disk_toggle [FLAG]            選択したデバイスの FLAG の状態をトグル"
 
-#: parted/parted.c:2104
+#: parted/parted.c:2107
 msgid "set"
 msgstr "set"
 
-#: parted/parted.c:2107
+#: parted/parted.c:2110
 msgid ""
 "set NUMBER FLAG STATE                    change the FLAG on partition NUMBER"
 msgstr "set NUMBER フラグ 状態        ファイルシステムのフラグと状態を設定する"
 
-#: parted/parted.c:2113
+#: parted/parted.c:2116
 msgid "toggle"
 msgstr "toggle"
 
-#: parted/parted.c:2116
+#: parted/parted.c:2119
 msgid ""
 "toggle [NUMBER [FLAG]]                   toggle the state of FLAG on "
 "partition NUMBER"
 msgstr "toggle [NUMBER [FLAG]]        パーティションのフラグの状態を反転する"
 
-#: parted/parted.c:2122
+#: parted/parted.c:2125
 msgid "unit"
 msgstr "unit"
 
-#: parted/parted.c:2125
+#: parted/parted.c:2128
 msgid "unit UNIT                                set the default unit to UNIT"
 msgstr "unit UNIT                     デフォルトの単位を UNIT にする"
 
-#: parted/parted.c:2130
+#: parted/parted.c:2133
 msgid "version"
 msgstr "version"
 
-#: parted/parted.c:2133
+#: parted/parted.c:2136
 msgid ""
 "version                                  display the version number and "
 "copyright information of GNU Parted"
 msgstr ""
 "version                       GNU Parted のバージョンと著作権情報を表示"
 
-#: parted/parted.c:2137
+#: parted/parted.c:2140
 msgid ""
 "'version' displays copyright and version information corresponding to this "
 "copy of GNU Parted\n"
 msgstr ""
 "version は、実行中の GNU Parted のバージョンと著作権情報を表示します。\n"
 
-#: parted/parted.c:2205
+#: parted/parted.c:2208
 #, c-format
 msgid "Usage: %s [-hlmsv] [-a<align>] [DEVICE [COMMAND [PARAMETERS]]...]\n"
 msgstr ""
 "使い方: %s [-hlmsv] [-a<アライン>] [デバイス [コマンド [パラメータ]]...]\n"
 
-#: parted/parted.c:2249
+#: parted/parted.c:2252
 msgid "No device found"
 msgstr "デバイスがみつかりません。"
 
-#: parted/parted.c:2286
+#: parted/parted.c:2289
 msgid "WARNING: You are not superuser.  Watch out for permissions.\n"
 msgstr "警告: 管理者権限がありません。パーミッションに注意してください。\n"
 
-#: parted/parted.c:2326
+#: parted/parted.c:2329
 msgid "You may need to update /etc/fstab.\n"
 msgstr "必要であれば /etc/fstab を更新するのを忘れないようにしてください。\n"
 
@@ -3212,39 +3223,43 @@ msgstr "ファイルシステムの種類 \"%s\" は不明です。"
 msgid "Expecting a disk label type."
 msgstr "ディスクラベルの種類を入力してください。"
 
-#: parted/ui.c:1253
+#: parted/ui.c:1157 parted/ui.c:1193
+msgid "No flags supported"
+msgstr "フラグがサポートされていません"
+
+#: parted/ui.c:1267
 msgid "Can't create any more partitions."
 msgstr "パーティションを追加できません。"
 
-#: parted/ui.c:1263
+#: parted/ui.c:1277
 msgid "Expecting a partition type."
 msgstr "パーティションの種類を入力してください。"
 
-#: parted/ui.c:1412
+#: parted/ui.c:1426
 msgid "on"
 msgstr "on"
 
-#: parted/ui.c:1413
+#: parted/ui.c:1427
 msgid "off"
 msgstr "off"
 
-#: parted/ui.c:1430
+#: parted/ui.c:1444
 msgid "optimal"
 msgstr "最適(optimal)"
 
-#: parted/ui.c:1431
+#: parted/ui.c:1445
 msgid "minimal"
 msgstr "最小(minimal)"
 
-#: parted/ui.c:1564
+#: parted/ui.c:1578
 msgid "OPTIONs:"
 msgstr "オプション"
 
-#: parted/ui.c:1569
+#: parted/ui.c:1583
 msgid "COMMANDs:"
 msgstr "コマンド:"
 
-#: parted/ui.c:1572
+#: parted/ui.c:1586
 #, c-format
 msgid ""
 "\n"
@@ -3253,11 +3268,11 @@ msgstr ""
 "\n"
 "バグレポートは %s へ。\n"
 
-#: parted/ui.c:1579
+#: parted/ui.c:1593
 #, c-format
 msgid "Using %s\n"
 msgstr "%s を使用\n"
 
-#: parted/ui.c:1659
+#: parted/ui.c:1673
 msgid "This command does not make sense in non-interactive mode.\n"
 msgstr "このコマンドは対話操作モードでなければ意味がありません。\n"
