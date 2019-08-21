@@ -1,5 +1,5 @@
 #!/bin/sh
-# Confirm that a value between 0 and 1 throws an error
+# Trigger a nilfs2-related bug.
 
 # Copyright (C) 2011-2014, 2019 Free Software Foundation, Inc.
 
@@ -17,16 +17,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/init.sh"; path_prepend_ ../parted
-
 ss=$sector_size_
-n_sectors=3000
+len=32
 dev=dev-file
 
-echo 'Error: Use a smaller unit instead of a value < 1' > exp
+dd if=/dev/zero of=$dev bs=512 count=$(($len+$ss/512)) || framework_failure_
 
-dd if=/dev/null of=$dev bs=$ss seek=$n_sectors || fail=1
-parted --align=none -s $dev mklabel msdos mkpart pri 0 0.5MB \
-    > err 2>&1
-compare exp err || fail=1
+end=$(($len * 512 / $ss))
+parted -s $dev mklabel msdos mkpart primary 1s ${end}s || framework_failure_
+
+# Write a secondary superblock with the nilfs magic number and a nilfs
+# superblock length (s_bytes) field of only 10 bytes.
+# struct nilfs2_super_block starts with these four fields...
+#	uint32_t	s_rev_level;
+#	uint16_t	s_minor_rev_level;
+#	uint16_t	s_magic;
+#	uint16_t	s_bytes;
+sb2_offset=$(( 24 / ($ss / 512) + 1))
+perl -e "print pack 'LSSS.', 0, 0, 0x3434, 10, $ss" |
+    dd of=$dev bs=$ss seek=$sb2_offset count=1 conv=notrunc
+
+# This used to give parted a sigsegv.
+parted -s $dev print || fail=1
 
 Exit $fail
