@@ -1,6 +1,7 @@
 /*
     libparted - a library for manipulating disk partitions
-    Copyright (C) 1999-2001, 2007-2014, 2019 Free Software Foundation, Inc.
+    Copyright (C) 1999-2001, 2007-2014, 2019-2020 Free Software Foundation,
+    Inc.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -109,6 +110,7 @@ extern void ped_file_system_linux_swap_init (void);
 extern void ped_file_system_jfs_init (void);
 extern void ped_file_system_hfs_init (void);
 extern void ped_file_system_fat_init (void);
+extern void ped_file_system_f2fs_init (void);
 extern void ped_file_system_ext2_init (void);
 extern void ped_file_system_nilfs2_init (void);
 extern void ped_file_system_btrfs_init (void);
@@ -126,6 +128,7 @@ init_file_system_types ()
 	ped_file_system_jfs_init ();
 	ped_file_system_hfs_init ();
 	ped_file_system_fat_init ();
+	ped_file_system_f2fs_init ();
 	ped_file_system_ext2_init ();
 	ped_file_system_nilfs2_init ();
 	ped_file_system_btrfs_init ();
@@ -186,6 +189,7 @@ _init()
 extern void ped_file_system_nilfs2_done (void);
 extern void ped_file_system_ext2_done (void);
 extern void ped_file_system_fat_done (void);
+extern void ped_file_system_f2fs_done (void);
 extern void ped_file_system_hfs_done (void);
 extern void ped_file_system_jfs_done (void);
 extern void ped_file_system_linux_swap_done (void);
@@ -202,6 +206,7 @@ done_file_system_types ()
 {
 	ped_file_system_nilfs2_done ();
 	ped_file_system_ext2_done ();
+	ped_file_system_f2fs_done ();
 	ped_file_system_fat_done ();
 	ped_file_system_hfs_done ();
 	ped_file_system_jfs_done ();

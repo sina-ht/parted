@@ -44,7 +44,6 @@ Here are most of the steps we (maintainers) follow when making a release.
    - device-mapper-devel
    - ncurses-devel
    - readline-devel
-   - libselinux-devel
    - check
    - pkgconfig
    - dosfstools
@@ -123,7 +122,17 @@ Here are most of the steps we (maintainers) follow when making a release.
 
 Once all the builds and tests have passed,
 
+* If this is your first time creating a release you will need to have your gpg
+  key added to the ftp system. Read this page
+
+  https://www.gnu.org/prep/maintain/html_node/Automated-Upload-Registration.html
+
+  for the details of how to request this.
+
 * Run the gnupload command that was suggested by your "make stable" run above.
+
+  If you are using a different gpg key to sign the releases you will need to
+  pass --user <EMAIL> to gnupload to select it.
 
 * Wait a few minutes (maybe up to 30?) and then use the release URLs to
   download all tarball/signature pairs and use gpg --verify to ensure
