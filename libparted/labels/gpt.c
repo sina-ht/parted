@@ -42,6 +42,7 @@
 #include <iconv.h>
 #include <langinfo.h>
 #include "xalloc.h"
+#include "xalloc-oversized.h"
 #include "verify.h"
 
 #include "pt-tools.h"
@@ -164,6 +165,48 @@ typedef struct
     ((efi_guid_t) { PED_CPU_TO_LE32 (0xbc13c2ff), PED_CPU_TO_LE16 (0x59e6), \
                     PED_CPU_TO_LE16 (0x4262), 0xa3, 0x52, \
                     { 0xb2, 0x75, 0xfd, 0x6f, 0x71, 0x72 }})
+#define PARTITION_LINUX_HOME_GUID \
+    ((efi_guid_t) { PED_CPU_TO_LE32 (0x933ac7e1), PED_CPU_TO_LE16 (0x2eb4), \
+                    PED_CPU_TO_LE16 (0x4f13), 0xb8, 0x44, \
+                    { 0x0e, 0x14, 0xe2, 0xae, 0xf9, 0x15 }})
+
+struct flag_uuid_mapping_t
+{
+    enum _PedPartitionFlag flag;
+    efi_guid_t type_uuid;
+};
+
+static const struct flag_uuid_mapping_t flag_uuid_mapping[] =
+{
+    { PED_PARTITION_APPLE_TV_RECOVERY,  PARTITION_APPLE_TV_RECOVERY_GUID },
+    { PED_PARTITION_BIOS_GRUB,          PARTITION_BIOS_GRUB_GUID },
+    { PED_PARTITION_BLS_BOOT,           PARTITION_BLS_BOOT_GUID },
+    { PED_PARTITION_BOOT,               PARTITION_SYSTEM_GUID },
+    { PED_PARTITION_CHROMEOS_KERNEL,    PARTITION_CHROMEOS_KERNEL_GUID },
+    { PED_PARTITION_DIAG,               PARTITION_MSFT_RECOVERY },
+    { PED_PARTITION_ESP,                PARTITION_SYSTEM_GUID },
+    { PED_PARTITION_HPSERVICE,          PARTITION_HPSERVICE_GUID },
+    { PED_PARTITION_IRST,               PARTITION_IRST_GUID },
+    { PED_PARTITION_LINUX_HOME,         PARTITION_LINUX_HOME_GUID },
+    { PED_PARTITION_LVM,                PARTITION_LVM_GUID },
+    { PED_PARTITION_MSFT_DATA,          PARTITION_BASIC_DATA_GUID },
+    { PED_PARTITION_MSFT_RESERVED,      PARTITION_MSFT_RESERVED_GUID },
+    { PED_PARTITION_PREP,               PARTITION_PREP_GUID },
+    { PED_PARTITION_RAID,               PARTITION_RAID_GUID },
+    { PED_PARTITION_SWAP,               PARTITION_SWAP_GUID },
+};
+
+static const struct flag_uuid_mapping_t* _GL_ATTRIBUTE_CONST
+gpt_find_flag_uuid_mapping (PedPartitionFlag flag)
+{
+  int n = sizeof(flag_uuid_mapping) / sizeof(flag_uuid_mapping[0]);
+
+  for (int i = 0; i < n; ++i)
+    if (flag_uuid_mapping[i].flag == flag)
+      return &flag_uuid_mapping[i];
+
+  return NULL;
+}
 
 struct __attribute__ ((packed)) _GuidPartitionTableHeader_t
 {
@@ -297,22 +340,7 @@ typedef struct _GPTPartitionData
   efi_guid_t uuid;
   efi_char16_t name[37];
   char *translated_name;
-  int lvm;
-  int swap;
-  int raid;
-  int boot;
-  int bios_grub;
-  int hp_service;
-  int hidden;
-  int msftres;
-  int msftdata;
-  int atvrecv;
-  int msftrecv;
-  int legacy_boot;
-  int prep;
-  int irst;
-  int chromeos_kernel;
-  int bls_boot;
+  GuidPartitionEntryAttributes_t attributes;
 } GPTPartitionData;
 
 static PedDiskType gpt_disk_type;
@@ -826,53 +854,7 @@ _parse_part_entry (PedDisk *disk, GuidPartitionEntry_t *pte)
     gpt_part_data->name[i] = (efi_char16_t) pte->PartitionName[i];
   gpt_part_data->name[i] = 0;
   gpt_part_data->translated_name = 0;
-
-  gpt_part_data->lvm = gpt_part_data->swap
-    = gpt_part_data->raid
-    = gpt_part_data->boot = gpt_part_data->hp_service
-    = gpt_part_data->hidden = gpt_part_data->msftres
-    = gpt_part_data->msftdata
-    = gpt_part_data->msftrecv
-    = gpt_part_data->legacy_boot
-    = gpt_part_data->prep
-    = gpt_part_data->irst
-    = gpt_part_data->chromeos_kernel
-    = gpt_part_data->bls_boot
-    = gpt_part_data->bios_grub = gpt_part_data->atvrecv = 0;
-
-  if (pte->Attributes.RequiredToFunction & 0x1)
-    gpt_part_data->hidden = 1;
-  if (pte->Attributes.LegacyBIOSBootable & 0x1)
-    gpt_part_data->legacy_boot = 1;
-
-  if (!guid_cmp (gpt_part_data->type, PARTITION_SYSTEM_GUID))
-    gpt_part_data->boot = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_BIOS_GRUB_GUID))
-    gpt_part_data->bios_grub = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_RAID_GUID))
-    gpt_part_data->raid = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_LVM_GUID))
-    gpt_part_data->lvm = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_SWAP_GUID))
-    gpt_part_data->swap = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_HPSERVICE_GUID))
-    gpt_part_data->hp_service = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_MSFT_RESERVED_GUID))
-    gpt_part_data->msftres = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_BASIC_DATA_GUID))
-    gpt_part_data->msftdata = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_MSFT_RECOVERY))
-    gpt_part_data->msftrecv = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_APPLE_TV_RECOVERY_GUID))
-    gpt_part_data->atvrecv = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_PREP_GUID))
-    gpt_part_data->prep = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_IRST_GUID))
-    gpt_part_data->irst = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_CHROMEOS_KERNEL_GUID))
-    gpt_part_data->chromeos_kernel = 1;
-  else if (!guid_cmp (gpt_part_data->type, PARTITION_BLS_BOOT_GUID))
-    gpt_part_data->bls_boot = 1;
+  gpt_part_data->attributes = pte->Attributes;
 
   return part;
 }
@@ -1241,12 +1223,7 @@ _partition_generate_part_entry (PedPartition *part, GuidPartitionEntry_t *pte)
   pte->UniquePartitionGuid = gpt_part_data->uuid;
   pte->StartingLBA = PED_CPU_TO_LE64 (part->geom.start);
   pte->EndingLBA = PED_CPU_TO_LE64 (part->geom.end);
-  memset (&pte->Attributes, 0, sizeof (GuidPartitionEntryAttributes_t));
-
-  if (gpt_part_data->hidden)
-    pte->Attributes.RequiredToFunction = 1;
-  if (gpt_part_data->legacy_boot)
-    pte->Attributes.LegacyBIOSBootable = 1;
+  pte->Attributes = gpt_part_data->attributes;
 
   for (i = 0; i < 36; i++)
     pte->PartitionName[i] = gpt_part_data->name[i];
@@ -1292,8 +1269,10 @@ gpt_write (const PedDisk *disk)
 
   /* Write PTH and PTEs */
   /* FIXME: Caution: this code is nearly identical to what's just below. */
-  if (_generate_header (disk, 0, ptes_crc, &gpt) != 0)
-    goto error_free_ptes;
+  if (_generate_header (disk, 0, ptes_crc, &gpt) != 0) {
+      pth_free(gpt);
+      goto error_free_ptes;
+  }
   pth_raw = pth_get_raw (disk->dev, gpt);
   pth_free (gpt);
   if (pth_raw == NULL)
@@ -1307,8 +1286,10 @@ gpt_write (const PedDisk *disk)
 
   /* Write Alternate PTH & PTEs */
   /* FIXME: Caution: this code is nearly identical to what's just above. */
-  if (_generate_header (disk, 1, ptes_crc, &gpt) != 0)
-    goto error_free_ptes;
+  if (_generate_header (disk, 1, ptes_crc, &gpt) != 0) {
+      pth_free(gpt);
+      goto error_free_ptes;
+  }
   pth_raw = pth_get_raw (disk->dev, gpt);
   pth_free (gpt);
   if (pth_raw == NULL)
@@ -1378,26 +1359,11 @@ gpt_partition_new (const PedDisk *disk,
     goto error_free_part;
 
   gpt_part_data->type = PARTITION_LINUX_DATA_GUID;
-  gpt_part_data->lvm = 0;
-  gpt_part_data->swap = 0;
-  gpt_part_data->raid = 0;
-  gpt_part_data->boot = 0;
-  gpt_part_data->bios_grub = 0;
-  gpt_part_data->hp_service = 0;
-  gpt_part_data->hidden = 0;
-  gpt_part_data->msftres = 0;
-  gpt_part_data->msftdata = 0;
-  gpt_part_data->msftrecv = 0;
-  gpt_part_data->atvrecv = 0;
-  gpt_part_data->legacy_boot = 0;
-  gpt_part_data->prep = 0;
   gpt_part_data->translated_name = 0;
-  gpt_part_data->irst = 0;
-  gpt_part_data->chromeos_kernel = 0;
-  gpt_part_data->bls_boot = 0;
   uuid_generate ((unsigned char *) &gpt_part_data->uuid);
   swap_uuid_and_efi_guid (&gpt_part_data->uuid);
   memset (gpt_part_data->name, 0, sizeof gpt_part_data->name);
+  memset (&gpt_part_data->attributes, 0, sizeof gpt_part_data->attributes);
   return part;
 
 error_free_part:
@@ -1464,77 +1430,6 @@ gpt_partition_set_system (PedPartition *part,
   PED_ASSERT (gpt_part_data != NULL);
 
   part->fs_type = fs_type;
-
-  if (gpt_part_data->lvm)
-    {
-      gpt_part_data->type = PARTITION_LVM_GUID;
-      return 1;
-    }
-  if (gpt_part_data->swap)
-    {
-      gpt_part_data->type = PARTITION_SWAP_GUID;
-      return 1;
-    }
-  if (gpt_part_data->raid)
-    {
-      gpt_part_data->type = PARTITION_RAID_GUID;
-      return 1;
-    }
-  if (gpt_part_data->prep)
-    {
-      gpt_part_data->type = PARTITION_PREP_GUID;
-      return 1;
-    }
-  if (gpt_part_data->boot)
-    {
-      gpt_part_data->type = PARTITION_SYSTEM_GUID;
-      return 1;
-    }
-  if (gpt_part_data->bios_grub)
-    {
-      gpt_part_data->type = PARTITION_BIOS_GRUB_GUID;
-      return 1;
-    }
-  if (gpt_part_data->hp_service)
-    {
-      gpt_part_data->type = PARTITION_HPSERVICE_GUID;
-      return 1;
-    }
-  if (gpt_part_data->msftres)
-    {
-      gpt_part_data->type = PARTITION_MSFT_RESERVED_GUID;
-      return 1;
-    }
-  if (gpt_part_data->msftdata)
-    {
-      gpt_part_data->type = PARTITION_BASIC_DATA_GUID;
-      return 1;
-    }
-  if (gpt_part_data->msftrecv)
-    {
-      gpt_part_data->type = PARTITION_MSFT_RECOVERY;
-      return 1;
-    }
-  if (gpt_part_data->atvrecv)
-    {
-      gpt_part_data->type = PARTITION_APPLE_TV_RECOVERY_GUID;
-      return 1;
-    }
-  if (gpt_part_data->irst)
-    {
-      gpt_part_data->type = PARTITION_IRST_GUID;
-      return 1;
-    }
-  if (gpt_part_data->chromeos_kernel)
-    {
-      gpt_part_data->type = PARTITION_CHROMEOS_KERNEL_GUID;
-      return 1;
-    }
-  if (gpt_part_data->bls_boot)
-    {
-      gpt_part_data->type = PARTITION_BLS_BOOT_GUID;
-      return 1;
-    }
 
   if (fs_type)
     {
@@ -1665,252 +1560,23 @@ gpt_partition_set_flag (PedPartition *part, PedPartitionFlag flag, int state)
   PED_ASSERT (part->disk_specific != NULL);
   gpt_part_data = part->disk_specific;
 
+  const struct flag_uuid_mapping_t* p = gpt_find_flag_uuid_mapping (flag);
+  if (p)
+  {
+    if (state)
+      gpt_part_data->type = p->type_uuid;
+    else if (guid_cmp (gpt_part_data->type, p->type_uuid) == 0)
+      return gpt_partition_set_system (part, part->fs_type);
+    return 1;
+  }
+
   switch (flag)
     {
-    case PED_PARTITION_ESP:
-    case PED_PARTITION_BOOT:
-      gpt_part_data->boot = state;
-      if (state)
-        gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_BIOS_GRUB:
-      gpt_part_data->bios_grub = state;
-      if (state)
-        gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->boot
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_RAID:
-      gpt_part_data->raid = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_LVM:
-      gpt_part_data->lvm = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->swap
-          = gpt_part_data->raid
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_SWAP:
-      gpt_part_data->swap = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->lvm
-          = gpt_part_data->raid
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_HPSERVICE:
-      gpt_part_data->hp_service = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_MSFT_RESERVED:
-      gpt_part_data->msftres = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_MSFT_DATA:
-      gpt_part_data->msftres = state;
-      if (state) {
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-        gpt_part_data->msftdata = 1;
-      } else {
-        gpt_part_data->msftdata = 0;
-      }
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_DIAG:
-      gpt_part_data->msftrecv = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftres
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_APPLE_TV_RECOVERY:
-      gpt_part_data->atvrecv = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->prep
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->msftrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_PREP:
-      gpt_part_data->prep = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->irst
-          = gpt_part_data->atvrecv
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->msftrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_IRST:
-      gpt_part_data->irst = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->bls_boot
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_CHROMEOS_KERNEL:
-      gpt_part_data->chromeos_kernel = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->bios_grub
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->atvrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->bls_boot = 0;
-      return gpt_partition_set_system (part, part->fs_type);
-    case PED_PARTITION_BLS_BOOT:
-      gpt_part_data->bls_boot = state;
-      if (state)
-        gpt_part_data->boot
-          = gpt_part_data->raid
-          = gpt_part_data->lvm
-          = gpt_part_data->swap
-          = gpt_part_data->bios_grub
-          = gpt_part_data->hp_service
-          = gpt_part_data->msftres
-          = gpt_part_data->msftdata
-          = gpt_part_data->msftrecv
-          = gpt_part_data->prep
-          = gpt_part_data->irst
-          = gpt_part_data->chromeos_kernel
-          = gpt_part_data->atvrecv = 0;
-      return gpt_partition_set_system (part, part->fs_type);
     case PED_PARTITION_HIDDEN:
-      gpt_part_data->hidden = state;
+      gpt_part_data->attributes.RequiredToFunction = state;
       return 1;
     case PED_PARTITION_LEGACY_BOOT:
-      gpt_part_data->legacy_boot = state;
+      gpt_part_data->attributes.LegacyBIOSBootable = state;
       return 1;
     case PED_PARTITION_ROOT:
     case PED_PARTITION_LBA:
@@ -1927,41 +1593,16 @@ gpt_partition_get_flag (const PedPartition *part, PedPartitionFlag flag)
   PED_ASSERT (part->disk_specific != NULL);
   gpt_part_data = part->disk_specific;
 
+  const struct flag_uuid_mapping_t* p = gpt_find_flag_uuid_mapping (flag);
+  if (p)
+    return guid_cmp (gpt_part_data->type, p->type_uuid) == 0;
+
   switch (flag)
     {
-    case PED_PARTITION_RAID:
-      return gpt_part_data->raid;
-    case PED_PARTITION_LVM:
-      return gpt_part_data->lvm;
-    case PED_PARTITION_ESP:
-    case PED_PARTITION_BOOT:
-      return gpt_part_data->boot;
-    case PED_PARTITION_BIOS_GRUB:
-      return gpt_part_data->bios_grub;
-    case PED_PARTITION_HPSERVICE:
-      return gpt_part_data->hp_service;
-    case PED_PARTITION_MSFT_RESERVED:
-      return gpt_part_data->msftres;
-    case PED_PARTITION_MSFT_DATA:
-      return gpt_part_data->msftdata;
-    case PED_PARTITION_DIAG:
-      return gpt_part_data->msftrecv;
-    case PED_PARTITION_APPLE_TV_RECOVERY:
-      return gpt_part_data->atvrecv;
     case PED_PARTITION_HIDDEN:
-      return gpt_part_data->hidden;
+      return gpt_part_data->attributes.RequiredToFunction;
     case PED_PARTITION_LEGACY_BOOT:
-      return gpt_part_data->legacy_boot;
-    case PED_PARTITION_PREP:
-      return gpt_part_data->prep;
-    case PED_PARTITION_IRST:
-      return gpt_part_data->irst;
-    case PED_PARTITION_BLS_BOOT:
-      return gpt_part_data->bls_boot;
-    case PED_PARTITION_SWAP:
-	return gpt_part_data->swap;
-    case PED_PARTITION_CHROMEOS_KERNEL:
-      return gpt_part_data->chromeos_kernel;
+      return gpt_part_data->attributes.LegacyBIOSBootable;
     case PED_PARTITION_LBA:
     case PED_PARTITION_ROOT:
     default:
@@ -1974,25 +1615,13 @@ static int
 gpt_partition_is_flag_available (const PedPartition *part,
                                  PedPartitionFlag flag)
 {
+  if (gpt_find_flag_uuid_mapping (flag))
+    return 1;
+
   switch (flag)
     {
-    case PED_PARTITION_RAID:
-    case PED_PARTITION_LVM:
-    case PED_PARTITION_SWAP:
-    case PED_PARTITION_BOOT:
-    case PED_PARTITION_BIOS_GRUB:
-    case PED_PARTITION_HPSERVICE:
-    case PED_PARTITION_MSFT_RESERVED:
-    case PED_PARTITION_MSFT_DATA:
-    case PED_PARTITION_DIAG:
-    case PED_PARTITION_APPLE_TV_RECOVERY:
     case PED_PARTITION_HIDDEN:
     case PED_PARTITION_LEGACY_BOOT:
-    case PED_PARTITION_PREP:
-    case PED_PARTITION_IRST:
-    case PED_PARTITION_ESP:
-    case PED_PARTITION_CHROMEOS_KERNEL:
-    case PED_PARTITION_BLS_BOOT:
       return 1;
     case PED_PARTITION_ROOT:
     case PED_PARTITION_LBA:

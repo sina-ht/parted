@@ -1,7 +1,7 @@
 #!/bin/sh
 # Probe Ext2, Ext3 and Ext4 file systems
 
-# Copyright (C) 2008-2014, 2019-2020 Free Software Foundation, Inc.
+# Copyright (C) 2008-2014, 2019-2022 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ done
 # Some features should indicate ext4 by themselves.
 for feature in uninit_bg flex_bg; do
   # create an ext3 file system
-  dd if=/dev/null of=$dev bs=1024 seek=4096 >/dev/null || skip_ "dd failed"
+  dd if=/dev/null of=$dev bs=1024 seek=8192 >/dev/null || skip_ "dd failed"
   mkfs.ext3 -F $dev >/dev/null || skip_ "mkfs.ext3 failed"
 
   # set the feature

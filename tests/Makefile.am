@@ -26,6 +26,7 @@ TESTS = \
   t0211-gpt-rewrite-header.sh \
   t0212-gpt-many-partitions.sh \
   t0213-mkpart-start-negative.sh \
+  t0215-gpt-attrs.sh \
   t0220-gpt-msftres.sh \
   t0250-gpt.sh \
   t0251-gpt-unicode.sh \
@@ -33,12 +34,15 @@ TESTS = \
   t0281-gpt-grow.sh \
   t0282-gpt-move-backup.sh \
   t0283-overlap-partitions.sh \
+  t0290-gpt-name.sh \
   t0300-dos-on-gpt.sh \
   t0301-overwrite-gpt-pmbr.sh \
   t0350-mac-PT-increases-sector-size.sh \
   t0400-loop-clobber-infloop.sh \
   t0500-dup-clobber.sh \
   t0501-duplicate.sh \
+  t0800-json-gpt.sh \
+  t0801-json-msdos.sh \
   t1100-busy-label.sh \
   t1101-busy-partition.sh \
   t1102-loop-label.sh \
@@ -56,6 +60,7 @@ TESTS = \
   t3000-resize-fs.sh \
   t3200-resize-partition.sh \
   t3200-type-change.sh \
+  t3210-gpt-type-change.sh \
   t3300-palo-prep.sh \
   t3310-flags.sh \
   t3400-whole-disk-FAT-partition.sh \
@@ -89,12 +94,13 @@ TESTS = \
   t9040-many-partitions.sh \
   t9041-undetected-in-use-16th-partition.sh \
   t9042-dos-partition-limit.sh \
-  t9050-partition-table-types.sh
+  t9050-partition-table-types.sh \
+  t9060-gpt-grow-script-fix.sh
 
 EXTRA_DIST = \
   $(TESTS) t-local.sh t-lvm.sh \
   init.cfg init.sh t-lib-helpers.sh gpt-header-munge \
-  gpt-header-move msdos-overlap
+  gpt-header-move msdos-overlap gpt-attrs
 
 check_PROGRAMS = print-align print-flags print-max dup-clobber duplicate \
   fs-resize

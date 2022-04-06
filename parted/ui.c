@@ -1,6 +1,6 @@
 /*
     parted - a frontend to libparted
-    Copyright (C) 1999-2002, 2006-2014, 2019-2020 Free Software Foundation,
+    Copyright (C) 1999-2002, 2006-2014, 2019-2022 Free Software Foundation,
     Inc.
 
     This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <config.h>
 
 #include <config.h>
 
@@ -644,6 +643,13 @@ exception_handler (PedException* ex)
         if (!option_get_next (ex->options, opt))
                 return opt;
 
+        /* script-mode and fix? */
+        int fix_is_an_option = (ex->options & PED_EXCEPTION_FIX);
+        if (opt_script_mode && opt_fix_mode && fix_is_an_option) {
+                printf ("Fixing, due to --fix\n");
+                return PED_EXCEPTION_FIX;
+        }
+
         /* script-mode: don't handle the exception */
         if (opt_script_mode || (!isatty (0) && !pretend_input_tty))
                 return PED_EXCEPTION_UNHANDLED;
@@ -720,6 +726,7 @@ void
 command_line_push_line (const char* line, int multi_word)
 {
         int     quoted = 0;
+        int     quotes_empty = 0;
         char    quote_char = 0;
         char    this_word [256];
         int     i;
@@ -747,6 +754,9 @@ command_line_push_line (const char* line, int multi_word)
 
                         if (quoted && *line == quote_char) {
                                 quoted = 0;
+                                /* allow empty partition name in script mode */
+                                if (!i)
+                                        quotes_empty = 1;
                                 continue;
                         }
 
@@ -754,9 +764,11 @@ command_line_push_line (const char* line, int multi_word)
                         if (quoted && line[0] == '\\' && line[1])
                                 line++;
 
+                        quotes_empty = 0;
                         this_word [i++] = *line;
                 }
-                if (i || !multi_word) {
+                if (i || !multi_word || quotes_empty) {
+                        quotes_empty = 0;
                         this_word [i] = 0;
                         command_line_push_word (this_word);
                 }

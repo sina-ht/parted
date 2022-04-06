@@ -1,6 +1,6 @@
  /*
     libparted - a library for manipulating disk partitions
-    Copyright (C) 1999-2003, 2005, 2007-2014, 2019-2020 Free Software
+    Copyright (C) 1999-2003, 2005, 2007-2014, 2019-2022 Free Software
     Foundation, Inc.
 
     This program is free software; you can redistribute it and/or modify
@@ -2411,6 +2411,8 @@ ped_partition_flag_get_name (PedPartitionFlag flag)
                 return N_("chromeos_kernel");
 	case PED_PARTITION_BLS_BOOT:
 		return N_("bls_boot");
+        case PED_PARTITION_LINUX_HOME:
+                return N_("linux-home");
 
 	default:
 		ped_exception_throw (
